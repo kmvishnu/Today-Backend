@@ -3,12 +3,13 @@ import { appRoutes } from './routes/allRoutes';
 import dotenv from 'dotenv'
 import { MiddleWareCollections } from './middlewares';
 import { todoRoutes } from './routes/todoRoutes';
+import { tempRoutes } from './routes/tempRoutes';
 const app = express();
 dotenv.config();
 
 
 MiddleWareCollections.essentials(app);
-
+app.use('/temp',tempRoutes )
 app.use('/account',appRoutes)
 app.use('/todo',todoRoutes)
 
