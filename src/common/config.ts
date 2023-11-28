@@ -15,4 +15,9 @@ export module Config {
 		logging: false
 	});	
 	
+	export const todosDB = new Sequelize(process.env.TODO_DB_NAME, process.env.TODO_DB_USER, process.env.TODO_DB_PASS, {
+		host: process.env.TODO_DB_HOST,
+		dialect: 'mysql',
+		logging: false
+	  });
 }
