@@ -1,30 +1,101 @@
-import { Config } from "../common/config"
-import { QueryTypes } from 'sequelize';
+import axios from "axios";
+import { todosTable } from "../models/todosTable";
 
+export const addTodo = async (req, res) => {
 
-export const viewAlltodos = async (req,res)=>{
-    const decodedToken = req['user'];
+    try {
 
-    try{
+        const newData = await todosTable.create({
+          name: req.body.data.name,
+          details: req.body.data.details?req.body.data.details:"",
+          done: req.body.data.done?req.body.data.done:false,
+        });
+    
+        res.json(newData);
+      } catch (error) {
+        console.error('Error adding data:', error);
+        res.status(500).send('Internal Server Error');
+      }
+};
 
-        const result = await Config.MySqlDB.query("select * from testActivities where user_id=:id",
-        { replacements : { 'id': decodedToken.userId },type:QueryTypes.SELECT});
-        
-        return res.status(200).json({ name: decodedToken.name,todos:result });
+export const editTodo = async (req, res) => {
+  const data = req.body.data;
 
+  const dataToUpdate = await todosTable.findByPk(data.id);
+
+    if (dataToUpdate) {
+      await dataToUpdate.update({
+        name: req.body.data.name,
+        details: req.body.data.details,
+        done: req.body.data.done,
+      });
+
+      res.json(dataToUpdate);
+    } else {
+      res.status(404).send('Record not found');
     }
-    catch(err){
-        console.error('Error fetching todos:', err);
-        return res.status(500).json({ error: 'Internal server error' }); // Return generic error response
-    }
-}
-export const addTodo = async (req,res)=>{
-    const decodedToken = req['user'];
-    const today = new Date();
-    const{activity_name, description, isRecurring}=req.body;
+};
 
-    await Config.MySqlDB.query('INSERT INTO testActivities (user_id, activity_name, description, isRecurring, create_date) VALUES (:user_id, :activity_name, :description, :isRecurring, :create_date)',
-              { replacements : { 'user_id': decodedToken.userId,'activity_name':activity_name,'description':description,'isRecurring':isRecurring, 'create_date':today.toISOString()}});
-      
-          return res.status(201).json({ message: 'Todo added successfully' });
-}
+export const deleteTodo = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const dataToDelete = await todosTable.findByPk(id);
+    
+        if (dataToDelete) {
+          await dataToDelete.destroy();
+    
+          res.json({ message: 'Record deleted successfully' });
+        } else {
+          res.status(404).send('Record not found');
+        }
+      } catch (error) {
+        console.error('Error deleting data:', error);
+        res.status(500).send('Internal Server Error');
+      }
+};
+
+export const viewAllTodo = async (req, res) => {
+    try {
+        const allData = await todosTable.findAll();
+    
+        res.json(allData);
+      } catch (error) {
+        console.error('Error retrieving data:', error);
+        res.status(500).send('Internal Server Error');
+      }
+};
+
+export const viewTodo = async (req, res) => {
+  const id = req.query.id;
+
+  try {
+    const dataToView = await todosTable.findByPk(id);
+
+    if (dataToView) {
+      res.json(dataToView);
+    } else {
+      res.status(404).send('Record not found');
+    }
+  } catch (error) {
+    console.error('Error retrieving data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+export const actionTodo = async (req, res) => {
+    const data = req.body.data;
+  
+    const dataToUpdate = await todosTable.findByPk(data.id);
+
+    if (dataToUpdate) {
+      await dataToUpdate.update({
+        done: req.body.data.done,
+      });
+
+      res.json(dataToUpdate);
+    } else {
+      res.status(404).send('Record not found');
+    }
+  };
+  
