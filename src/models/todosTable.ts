@@ -32,3 +32,4 @@ export const todosTable = Config.todosDB.define('todos', {
   });
 
 
+  todosTable.sync()
