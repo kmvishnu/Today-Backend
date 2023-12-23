@@ -20,8 +20,12 @@ export const todosTable = Config.todosDB.define('todos', {
     defaultValue: false,
   },
   created_at: {
-    type: Sequelize.TIME,
+    type: Sequelize.DATE,
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+  },
+  constant: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   
 }

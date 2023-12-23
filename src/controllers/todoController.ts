@@ -9,6 +9,7 @@ export const addTodo = async (req, res) => {
           name: req.body.data.name,
           details: req.body.data.details?req.body.data.details:"",
           done: req.body.data.done?req.body.data.done:false,
+          constant: req.body.data.constant?req.body.data.constant:false
         });
     
         res.json(newData);
