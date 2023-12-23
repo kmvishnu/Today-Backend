@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import { MiddleWareCollections } from './middlewares';
 import { todoRoutes } from './routes/todoRoutes';
 import { tempRoutes } from './routes/tempRoutes';
+import './jobs/todoReset'
 import cors from "cors"
 
 const app = express();
