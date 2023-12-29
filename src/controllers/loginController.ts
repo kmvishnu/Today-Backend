@@ -2,21 +2,22 @@ import jwt from "jsonwebtoken";
 import { Config } from "../common/config";
 import bcrypt from "bcrypt";
 import { QueryTypes } from "sequelize";
+import { verifyUser } from "../Components/userComponent";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const userRows: any[] = await Config.MySqlDB.query(
-      "SELECT id,name,password FROM testUsers WHERE email =:email ",
-      { replacements: { email: email }, type: QueryTypes.SELECT }
-    );
+    const user = await verifyUser(email)
+    
 
-    if (userRows.length === 0) {
+    if (user === null) {
       return res.status(401).json({ error: "Invalid email or password" }); // Return unauthorized response
     }
+    
 
-    const hashedPassword = userRows[0].password;
+    const hashedPassword = user.dataValues.password;
+    
 
     // Compare the provided password with the hashed password
     const passwordMatch = await bcrypt.compare(password, hashedPassword);
@@ -28,8 +29,8 @@ export const login = async (req, res) => {
     const jwtSecretKey = process.env.JWT_SECRET_KEY;
     const data = {
       time: Date(),
-      name: userRows[0].name,
-      userId: userRows[0].id,
+      name: user.dataValues.name,
+      id: user.dataValues.id,
       exp: Math.floor(Date.now() / 1000) + Number(process.env.EXPIRESIN),
     };
     const token = jwt.sign(data, jwtSecretKey);

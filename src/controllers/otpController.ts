@@ -1,20 +1,20 @@
-import { sendOtpMail, verifyEmail } from "../Components/emailComponent";
+import { getOtpFromFirebase, sendOtpMail, verifyEmail } from "../Components/emailComponent";
+import { createUser } from "../Components/userComponent";
 
 export const sendOtp = async (req, res) => {
-  const status = verifyEmail(req.body.email);
+  
+  const status = await verifyEmail(req.body.email);
 
   if (status === true) {
-    res
+    return res
       .status(400)
       .json({
-        status: false,
-        message: "User already exists, Please Proceed to login",
+        status: "false",
+        message: "User already exists, Please Proceed to ",
       });
   }
 
   const emailStatus = await sendOtpMail(req.body.email);
-  console.log("email status",emailStatus);
-  
 
   if (emailStatus) {
     return res.status(200).json({
@@ -28,4 +28,43 @@ export const sendOtp = async (req, res) => {
     message: "Unable to send email at the momment",
   });
 };
+
+export const verifyOtp = async (req, res)=>{
+      
+      // Retrieve email and OTP from request object
+      const { email, otp, password,name } = req.body;
+  
+      // Retrieve the OTP details from the database
+      const emailOtp = await getOtpFromFirebase(email);
+  
+      // Check if this record exists and proceed
+      if(emailOtp.exists){
+  
+          // Retrieve the expiry date
+          const date = emailOtp.data().expiry
+  
+          // Check if OTP has expired
+          if(Date.now() > date){
+              return res.json({status:"failed", message:"Sorry this otp has expired!"})
+          }else{
+              // Retrieve OTP code from database
+              const rOtp= emailOtp.data().otp
+  
+              // Compare OTP for match
+              if(otp == rOtp){
+                    const result=await createUser(name,email,password);
+                    if(result){
+                        return res.status(200).json({status:"otpSuccess", message:"User Created"})
+                    }
+
+              }
+  
+              return res.status(400).json({status:"otpFalse", message:"Sorry, the otp provided is not valid"})
+          }
+      }
+  
+  return res.status(500).json({status:"otpFailed", message:"OTP can not be verified at the moment!"})
+  
+  
+}
   
