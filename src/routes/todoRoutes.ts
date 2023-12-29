@@ -1,5 +1,6 @@
 import express from "express";
 import { login, profile, signUp } from "../controllers/loginController";
+import { sendOtp } from "../controllers/otpController";
 import {
   addTodo,
   deleteTodo,
@@ -17,3 +18,4 @@ todoRoutes.delete("/deleteTodo/:id", deleteTodo);
 todoRoutes.get("/viewAllTodos", viewAllTodo);
 todoRoutes.get("/viewRecurringTodos", [validateToken]);
 todoRoutes.get("/view", viewTodo);
+todoRoutes.post("/sendOtp",sendOtp)
