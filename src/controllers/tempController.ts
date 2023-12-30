@@ -1,9 +1,8 @@
 import axios from "axios";
 
 export const addTodo = (req, res) => {
-
   axios
-    .post("http://localhost:3000/todos", {...req.body.data,done:false})
+    .post("http://localhost:3000/todos", { ...req.body.data, done: false })
     .then((resp) => {
       console.log(resp.data);
       return res.status(200).json({ message: "todo added", data: resp.data });
@@ -20,8 +19,8 @@ export const editTodo = (req, res) => {
   axios
     .put(`http://localhost:3000/todos/${data.id}/`, {
       name: data.name,
-      details:data.details?data.details:"",
-      done:data.done
+      details: data.details ? data.details : "",
+      done: data.done,
     })
     .then((resp) => {
       return res.status(200).json({ message: "edited todo", data: resp.data });
@@ -33,7 +32,7 @@ export const editTodo = (req, res) => {
 };
 
 export const deleteTodo = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
   axios
     .delete(`http://localhost:3000/todos/${id}/`)
@@ -50,7 +49,7 @@ export const viewAllTodo = (req, res) => {
   axios
     .get("http://localhost:3000/todos")
     .then((resp) => {
-      return res.status(200).json({ data: resp.data }); 
+      return res.status(200).json({ data: resp.data });
     })
     .catch((error) => {
       console.log(error);
@@ -64,7 +63,7 @@ export const viewTodo = (req, res) => {
   axios
     .get(`http://localhost:3000/todos/${id}`)
     .then((resp) => {
-      return res.status(200).json({ data: resp.data }); 
+      return res.status(200).json({ data: resp.data });
     })
     .catch((error) => {
       console.log(error);
@@ -73,18 +72,17 @@ export const viewTodo = (req, res) => {
 };
 
 export const actionTodo = (req, res) => {
-    const data = req.body.data;
-  
-    axios
-      .put(`http://localhost:3000/todos/${data.id}/`, {
-        done:data.done
-      })
-      .then((resp) => {
-        return res.status(200).json({ message: "edited todo", data: resp.data });
-      })
-      .catch((error) => {
-        console.log(error);
-        return res.status(500).json({ message: "DB Error" });
-      });
-  };
-  
+  const data = req.body.data;
+
+  axios
+    .put(`http://localhost:3000/todos/${data.id}/`, {
+      done: data.done,
+    })
+    .then((resp) => {
+      return res.status(200).json({ message: "edited todo", data: resp.data });
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.status(500).json({ message: "DB Error" });
+    });
+};

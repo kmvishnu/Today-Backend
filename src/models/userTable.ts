@@ -2,8 +2,8 @@ import Sequelize from "sequelize";
 import { Config } from "../common/config";
 
 // Define your table model
-export const todosTable = Config.todosDB.define(
-  "todos",
+export const usersTable = Config.todosDB.define(
+  "users",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -14,23 +14,17 @@ export const todosTable = Config.todosDB.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    details: {
-      type: Sequelize.TEXT,
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
-    done: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     created_at: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-    },
-    constant: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
-    user_id: {
-      type: Sequelize.INTEGER,
     },
   },
   {
@@ -39,4 +33,4 @@ export const todosTable = Config.todosDB.define(
   }
 );
 
-todosTable.sync();
+usersTable.sync();
