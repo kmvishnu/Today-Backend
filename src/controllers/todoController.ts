@@ -3,11 +3,13 @@ import { todosTable } from "../models/todosTable";
 
 export const addTodo = async (req, res) => {
   try {
+    const user =req.user.id;
     const newData = await todosTable.create({
       name: req.body.data.name,
       details: req.body.data.details ? req.body.data.details : "",
       done: req.body.data.done ? req.body.data.done : false,
       constant: req.body.data.constant ? req.body.data.constant : false,
+      user_id : user
     });
 
     res.json(newData);
@@ -56,7 +58,12 @@ export const deleteTodo = async (req, res) => {
 
 export const viewAllTodo = async (req, res) => {
   try {
-    const allData = await todosTable.findAll();
+    const user=req.user;
+    const allData = await todosTable.findAll({
+      where: {
+        user_id: user.id,
+      },
+    });
 
     res.json(allData);
   } catch (error) {

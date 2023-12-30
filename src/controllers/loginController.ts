@@ -35,7 +35,7 @@ export const login = async (req, res) => {
     };
     const token = jwt.sign(data, jwtSecretKey);
 
-    res.status(200).json({ status: "success", token: token });
+    res.status(200).json({ status: "success", token: token , name:user.dataValues.name});
   } catch (error) {
     console.error("Error during login:", error);
     return res.status(500).json({ error: "Internal server error" }); // Return generic error response

@@ -29,6 +29,9 @@ export const todosTable = Config.todosDB.define(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    user_id: {
+      type: Sequelize.INTEGER,
+    },
   },
   {
     modelName: "todos",
