@@ -6,7 +6,7 @@ const runScheduledJob = async () => {
     await Config.todosDB.query("select * from todos");
     setTimeout(function () {
       dbFunction();
-    }, 12000);
+    }, 150000);
   } catch (error) {
     console.error("Error performing database operations:", error.message);
   }
@@ -24,6 +24,6 @@ const dbFunction = async () => {
 };
 
 // Schedule the job to run every day at a specific time (e.g., midnight)
-cron.schedule("33 12 * * *", () => {
+cron.schedule("0 0 * * *", () => {
   runScheduledJob();
 });
