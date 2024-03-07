@@ -15,6 +15,7 @@ const dbFunction = async () => {
   await Config.todosDB.query(
     "DELETE FROM todos WHERE done = 1 AND constant = 0"
   );
+  
   await Config.todosDB.query("UPDATE todos SET done = 0 WHERE constant = 1");
 
   console.log(

@@ -33,4 +33,4 @@ export const usersTable = Config.todosDB.define(
   }
 );
 
-usersTable.sync();
+// usersTable.sync();

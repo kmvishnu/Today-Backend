@@ -33,6 +33,7 @@ const transporter = nodemailer.createTransport({
 });
 
 import { usersTable } from "../models/userTable";
+import UserModel from "../models/userMongo";
 
 export const verifyEmail = async (email: string): Promise<boolean> => {
   try {
@@ -50,6 +51,20 @@ export const verifyEmail = async (email: string): Promise<boolean> => {
   }
 };
 
+export const verifyEmailV2 = async (email: string): Promise<boolean> => {
+  try {
+
+    const user = await UserModel.findOne({ emailId :email});
+    
+    // If a user with the given email is found, return true
+    // Otherwise, return false
+    return !!user;
+  } catch (error) {
+    console.error("Error verifying email:", error);
+    return false;
+  }
+};
+
 
 export const sendOtpMail = async (email: string) => {
   try {
@@ -58,7 +73,7 @@ export const sendOtpMail = async (email: string) => {
 
     // Generate OTP code
     const code = otpGenerator.generate(6, {
-      upperCase: false,
+      upperCaseAlphabets: false,
       specialChars: false,
       alphabets: false,
       digits: true,
@@ -74,7 +89,6 @@ export const sendOtpMail = async (email: string) => {
 
     const expiryDate = Date.now() + 180000;
 
-    console.log(`DATE: ${expiryDate}`);
 
     try {
       await transporter.sendMail(mailOptions);
@@ -89,7 +103,7 @@ export const sendOtpMail = async (email: string) => {
       return false;
     }
   } catch (e) {
-    console.log(e);
+      (e);
     return false;
   }
 };

@@ -2,21 +2,23 @@ import jwt from "jsonwebtoken";
 import { Config } from "../common/config";
 import bcrypt from "bcryptjs";
 import { QueryTypes } from "sequelize";
-import { verifyUser } from "../Components/userComponent";
+import { verifyUser } from "../Components/v2UserComponent";
+
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await verifyUser(email)
+    const user:any = await verifyUser(email)
     
 
     if (user === null) {
       return res.status(401).json({ error: "Invalid email or password" }); // Return unauthorized response
     }
     
-
-    const hashedPassword = user.dataValues.password;
+    console.log("loginn",user);
+    
+    const hashedPassword = user?user.password:'';
     
 
     // Compare the provided password with the hashed password
@@ -29,13 +31,13 @@ export const login = async (req, res) => {
     const jwtSecretKey = process.env.JWT_SECRET_KEY;
     const data = {
       time: Date(),
-      name: user.dataValues.name,
-      id: user.dataValues.id,
+      name: user.name,
+      id: user._id,
       exp: Math.floor(Date.now() / 1000) + Number(process.env.EXPIRESIN),
     };
     const token = jwt.sign(data, jwtSecretKey);
 
-    res.status(200).json({ status: "success", token: token , name:user.dataValues.name});
+    res.status(200).json({ status: "success", token: token , name:user?user.name:''});
   } catch (error) {
     console.error("Error during login:", error);
     return res.status(500).json({ error: "Internal server error" }); // Return generic error response

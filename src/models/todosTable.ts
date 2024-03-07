@@ -38,5 +38,5 @@ export const todosTable = Config.todosDB.define(
     timestamps: false,
   }
 );
-
-todosTable.sync();
+ 
+// todosTable.sync();
