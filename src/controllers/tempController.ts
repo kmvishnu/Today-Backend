@@ -91,7 +91,7 @@ export const actionTodo = (req, res) => {
     });
 };
 
-const uri = "mongodb+srv://nextgentodoapp:Ustdev3*@cluster0.e8bv6uf.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.mongoUsername}:${process.env.mongoPassword}@cluster0.e8bv6uf.mongodb.net/?retryWrites=true&w=majority`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
