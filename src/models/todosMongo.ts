@@ -12,7 +12,7 @@ interface ITodo extends Document {
 
 const todoSchema = new Schema<ITodo>({
   name: { type: String, required: true },
-  details: { type: String, required: true},
+  details: { type: String},
   done: { type: Boolean, required: true},
   user_id: { type: String, required: true},
   constant: { type: Boolean, required: true},

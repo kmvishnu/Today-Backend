@@ -5,7 +5,7 @@ export const addTodo = async (req, res) => {
     const user = req.user.id;
     const newData = await TodosModel.create({
       name: req.body.data.name,
-      details: req.body.data.details ? req.body.data.details : "",
+      details: req.body.data.details || "",
       done: req.body.data.done ? req.body.data.done : false,
       constant: req.body.data.constant ? req.body.data.constant : false,
       user_id: user,
