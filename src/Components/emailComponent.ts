@@ -108,6 +108,35 @@ export const sendOtpMail = async (email: string) => {
   }
 };
 
+export const sendTestMail = async () => {
+  try {
+   
+
+    
+    // mail options object to send email
+    const mailOptions = {
+      from: process.env.FROM_USER,
+      to: process.env.FROM_TEST_USER,
+      subject: "This is a test email",
+      html: `<html> <h1>Hi,</h1> <br/><p style="color:grey; font-size:1.2em">Please Ignore this mail</p><br><br><h1 style="color:orange"></h1></html>`,
+    };
+
+
+    try {
+      await transporter.sendMail(mailOptions);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  } catch (e) {
+      (e);
+    return false;
+  }
+};
+
+
+
 export const getOtpFromFirebase = async (email:string)=>{
     const db=admin.firestore()
     const otp = await db.collection("otps").doc(email).get()

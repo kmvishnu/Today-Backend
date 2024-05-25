@@ -21,23 +21,28 @@ export const addTodo = async (req, res) => {
 export const editTodo = async (req, res) => {
   const data = req.body.data;
 
-  const dataToUpdate = await TodosModel.findOne({_id:data.id});
+  try {
+    const dataToUpdate = await TodosModel.findOne({ _id: data.id });
 
-  if (dataToUpdate) {
-    await TodosModel.updateOne(
-      { _id: data.id },
-      {
-        $set: {
-          name: req.body.data.name,
-          details: req.body.data.details,
-          done: req.body.data.done,
-        },
-      }
-    );
+    if (dataToUpdate !== null) {
+      await TodosModel.updateOne(
+        { _id: data.id },
+        {
+          $set: {
+            name: req.body.data.name,
+            details: req.body.data.details,
+            done: req.body.data.done,
+          },
+        }
+      );
 
-    res.json(dataToUpdate);
-  } else {
-    res.status(404).send("Record not found");
+      res.status(200).send({ status: true, message: "Successfully Updated" });
+    } else {
+      res.status(404).send("Record not found");
+    }
+  } catch (error) {
+    console.error("Error Updating data:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
@@ -45,12 +50,13 @@ export const deleteTodo = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const dataToDelete = await TodosModel.findOne({_id:id});
+    const dataToDelete = await TodosModel.findOne({ _id: id });
+    console.log("Data to delete:", dataToDelete);
 
-    if (dataToDelete) {
-      await dataToDelete.deleteOne({_id:id});
+    if (dataToDelete !== null) {
+      await dataToDelete.deleteOne({ _id: id });
 
-      res.json({ message: "Record deleted successfully" });
+      res.json({ status: true, message: "Record deleted successfully" });
     } else {
       res.status(404).send("Record not found");
     }
@@ -75,10 +81,10 @@ export const viewAllTodo = async (req, res) => {
 };
 
 export const viewTodo = async (req, res) => {
-  const id = req.query.id;
+  const id = req.params.id;
 
   try {
-    const dataToView = await TodosModel.findOne({_id:id});
+    const dataToView = await TodosModel.findOne({ _id: id });
 
     if (dataToView) {
       res.json(dataToView);
@@ -94,7 +100,7 @@ export const viewTodo = async (req, res) => {
 export const actionTodo = async (req, res) => {
   const data = req.body.data;
 
-  const dataToUpdate = await TodosModel.findOne({_id:data.id});
+  const dataToUpdate = await TodosModel.findOne({ _id: data.id });
 
   if (dataToUpdate) {
     await TodosModel.updateOne(

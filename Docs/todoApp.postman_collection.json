@@ -1,0 +1,435 @@
+{
+	"info": {
+		"_postman_id": "164b7da7-868e-44ea-a807-19a23b8be598",
+		"name": "todoApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31840055"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "add Todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\":{\r\n        \"name\":\"newee\",\r\n        \"details\":\"sample details\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/temp/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"temp",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view all todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3300/temp/viewAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"temp",
+								"viewAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit todo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\":{\r\n        \"id\":14,\r\n        \"name\":\"edited todo\"\r\n    }\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/temp/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"temp",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete todo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3300/temp/delete/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"temp",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view todo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3300/temp/view?id=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"temp",
+								"view"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendOtp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyOtp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v2",
+			"item": [
+				{
+					"name": "sendOtp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"example@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/v2/sendOtp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"sendOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyOtp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"example\",\r\n    \"email\":\"example@gmail.com\",\r\n    \"password\":\"test\",\r\n    \"otp\":\"n1kvo8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/v2/verifyOtp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"verifyOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login v2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"example@gmail.com\",\r\n    \"password\":\"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/v2/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Todo v2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiRnJpIE1heSAyNCAyMDI0IDIzOjU5OjU5IEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKSIsIm5hbWUiOiJrbSIsImlkIjoiNjY1MGRjOTFmMjBjNjMyYmM3NDY2MTk4IiwiZXhwIjoxNzE2NTc2Mzk5LCJpYXQiOjE3MTY1NzUzOTl9.PQgrBFhVCaYfXV-wW88Z0-XPsT7tCI3C8_dJJsgd5s8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\":{\r\n        \"name\":\"3rd todo\",\r\n        \"details\":\"sample details 3\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/v2/createTodo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"createTodo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view all todos v2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiU2F0IE1heSAyNSAyMDI0IDAxOjA3OjMwIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKSIsIm5hbWUiOiJrbSIsImlkIjoiNjY1MGRjOTFmMjBjNjMyYmM3NDY2MTk4IiwiZXhwIjoxNzE2NTgwNDUwLCJpYXQiOjE3MTY1Nzk0NTB9.DhBCLYpjt3auVnvzjK27xfByoLV1qDksUeFXwCGgZAw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3300/v2/viewAllTodos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"viewAllTodos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit todo v2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6650dd25f20c632bc746619c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\":{\r\n        \"id\":\"6650dd25f20c632bc746619c\",\r\n        \"name\":\"testttt todo\"\r\n    }\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3300/v2/updateTodo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"updateTodo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete todo v2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiU2F0IE1heSAyNSAyMDI0IDAwOjM2OjIwIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKSIsIm5hbWUiOiJrbSIsImlkIjoiNjY1MGRjOTFmMjBjNjMyYmM3NDY2MTk4IiwiZXhwIjoxNzE2NTc4NTgwLCJpYXQiOjE3MTY1Nzc1ODB9.92XBOGyeaQrA2WTKxj9u3bwcTqKVqlQ0tWgC68AB1kQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3300/v2/deleteTodo/6650dd25f20c632bc746619c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"deleteTodo",
+								"6650dd25f20c632bc746619c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view todo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiU2F0IE1heSAyNSAyMDI0IDAxOjA3OjMwIEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKSIsIm5hbWUiOiJrbSIsImlkIjoiNjY1MGRjOTFmMjBjNjMyYmM3NDY2MTk4IiwiZXhwIjoxNzE2NTgwNDUwLCJpYXQiOjE3MTY1Nzk0NTB9.DhBCLYpjt3auVnvzjK27xfByoLV1qDksUeFXwCGgZAw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3300/v2/view/6650dd77f20c632bc746619f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3300",
+							"path": [
+								"v2",
+								"view",
+								"6650dd77f20c632bc746619f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

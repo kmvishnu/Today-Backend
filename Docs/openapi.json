@@ -1,0 +1,646 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "todoApp",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3300"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "v1"
+    },
+    {
+      "name": "v2"
+    }
+  ],
+  "paths": {
+    "/temp/add": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "add Todo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "data": {
+                    "name": "newee",
+                    "details": "sample details"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/temp/viewAll": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "view all todos",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/temp/edit": {
+      "put": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "edit todo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "data": {
+                    "id": 14,
+                    "name": "edited todo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/temp/delete/3": {
+      "delete": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "delete todo",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/temp/view": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "view todo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v2/sendOtp": {
+      "post": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "sendOtp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "example@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "OTP has been sent to the provided email."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": false,
+                  "message": "User already exists, Please Proceed to login"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "failed",
+                  "message": "Unable to send email at the moment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/verifyOtp": {
+      "post": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "verifyOtp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "example",
+                  "email": "example@gmail.com",
+                  "password": "test",
+                  "otp": "n1kvo8"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "otpSuccess",
+                  "message": "User Created."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "otpFalse",
+                  "message": "Sorry, the otp provided is not valid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "otpFailed",
+                  "message": "OTP cannot be verified at the moment!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/login": {
+      "post": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "login v2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "example@gmail.com",
+                  "password": "test"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "token": "skxvxtjnejnsfsdgh",
+                  "name": "John Doe"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid email or password"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/createTodo": {
+      "post": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "add Todo v2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "data": {
+                    "name": "3rd todo",
+                    "details": "sample details 3",
+                    "constant": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "3rd todo",
+                  "details": "sample details 3",
+                  "done": false,
+                  "user_id": "6650dc91f20c632bc7466198",
+                  "constant": false,
+                  "_id": "6650dd84f20c632bc74661a1",
+                  "createDate": "2024-05-24T18:33:40.886Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Invalid token!"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/viewAllTodos": {
+      "get": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "view all todos v2",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "6650dd77f20c632bc746619f",
+                    "name": "2ndd todo",
+                    "details": "sample details 2",
+                    "done": false,
+                    "user_id": "6650dc91f20c632bc7466198",
+                    "constant": false,
+                    "createDate": "2024-05-24T18:33:27.455Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "6650dd84f20c632bc74661a1",
+                    "name": "3rd todo",
+                    "details": "sample details 3",
+                    "done": false,
+                    "user_id": "6650dc91f20c632bc7466198",
+                    "constant": false,
+                    "createDate": "2024-05-24T18:33:40.886Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Invalid token!"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/updateTodo": {
+      "put": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "edit todo v2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "data": {
+                    "id": "6650dd25f20c632bc746619c",
+                    "name": "testttt todo",
+                    "details": "test details",
+                    "done": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": true,
+                  "message": "Successfully Updated"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Invalid token!"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Record not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/deleteTodo/6650dd25f20c632bc746619c": {
+      "delete": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "delete todo v2",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": true,
+                  "message": "Record deleted successfully"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Invalid token!"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Record not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/view/6650dd77f20c632bc746619f": {
+      "get": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "view todo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "6650dd77f20c632bc746619f",
+                  "name": "testttt todo",
+                  "details": "sample details",
+                  "done": true,
+                  "user_id": "6650dc91f20c632bc7466198",
+                  "constant": false,
+                  "createDate": "2024-05-24T18:33:27.455Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Invalid token!"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Record not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

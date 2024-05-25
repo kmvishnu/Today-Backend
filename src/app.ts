@@ -8,6 +8,8 @@ import { tempRoutes } from "./routes/tempRoutes";
 import cors from "cors";
 import { v2Routes } from "./routes/v2Routes";
 import { db} from './common/db.config'
+import * as cron from 'node-cron';
+import { sendTestMail } from "./Components/emailComponent";
 
 const app = express();
 dotenv.config();
@@ -18,6 +20,12 @@ app.use("/temp", tempRoutes);
 app.use("/account", appRoutes);
 app.use("/todo", todoRoutes);
 app.use("/v2",v2Routes)
+
+cron.schedule('0 0 * * *', () => {
+  console.log("Test mail sent");
+  
+sendTestMail()
+});
 
 const PORT = process.env.PORT || 3300;
 db.then(()=>{

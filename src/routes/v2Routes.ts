@@ -18,7 +18,7 @@ v2Routes.put("/updateTodo",[validateToken], editTodo);
 v2Routes.delete("/deleteTodo/:id", [validateToken],deleteTodo);
 v2Routes.get("/viewAllTodos",[validateToken], viewAllTodo);
 v2Routes.get("/viewRecurringTodos", [validateToken]);
-v2Routes.get("/view", [validateToken], viewTodo);
+v2Routes.get("/view/:id", [validateToken], viewTodo);
 v2Routes.post("/sendOtp",sendOtp)
 v2Routes.post("/verifyOtp",verifyOtp)
 v2Routes.post("/login",login)
