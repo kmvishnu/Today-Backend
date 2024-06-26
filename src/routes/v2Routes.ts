@@ -22,3 +22,6 @@ v2Routes.get("/view/:id", [validateToken], viewTodo);
 v2Routes.post("/sendOtp",sendOtp)
 v2Routes.post("/verifyOtp",verifyOtp)
 v2Routes.post("/login",login)
+v2Routes.get("/test",(req,res)=>{
+  res.json(" TodoApp healthcheck Success")
+})
