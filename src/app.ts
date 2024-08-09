@@ -29,7 +29,7 @@ sendTestMail()
 
 const PORT = process.env.PORT || 3300;
 db.then(()=>{
-  console.log("Mongooose");
+  console.log("Connected to Atlas");
   
 })
 app.listen(PORT, () => {
