@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import admin from "firebase-admin";
-import otpGenerator from "otp-generator";
+// import otpGenerator from "otp-generator";
 
 const config = {
   type: process.env.FIREBASE_TYPE,
@@ -72,13 +72,7 @@ export const sendOtpMail = async (email: string) => {
     const db = admin.firestore();
 
     // Generate OTP code
-    const code = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      specialChars: false,
-      alphabets: false,
-      digits: true,
-    });
-
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
     // mail options object to send email
     const mailOptions = {
       from: process.env.FROM_USER,

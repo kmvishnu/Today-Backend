@@ -1,7 +1,7 @@
 import express from "express";
 
 import { sendOtp, verifyOtp } from "../controllers/v2OtpController";
-import { login } from "../controllers/v2LoginController";
+import { login, refreshToken } from "../controllers/v2LoginController";
 import {
   addTodo,
   deleteTodo,
@@ -22,6 +22,7 @@ v2Routes.get("/view/:id", [validateToken], viewTodo);
 v2Routes.post("/sendOtp",sendOtp)
 v2Routes.post("/verifyOtp",verifyOtp)
 v2Routes.post("/login",login)
+v2Routes.post("/refreshToken",refreshToken)
 v2Routes.get("/test",(req,res)=>{
   res.json(" TodoApp healthcheck Success")
 })

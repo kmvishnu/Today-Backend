@@ -6,7 +6,6 @@ export const addTodo = (req, res) => {
   axios
     .post("http://localhost:3000/todos", { ...req.body.data, done: false })
     .then((resp) => {
-      console.log(resp.data);
       return res.status(200).json({ message: "todo added", data: resp.data });
     })
     .catch((error) => {
