@@ -111,7 +111,7 @@ export const sendTestMail = async () => {
     const mailOptions = {
       from: process.env.FROM_USER,
       to: process.env.FROM_TEST_USER,
-      subject: "This is a test email",
+      subject: "This is a test email - You will receive this every 3rd day",
       html: `<html> <h1>Hi,</h1> <br/><p style="color:grey; font-size:1.2em">Please Ignore this mail</p><br><br><h1 style="color:orange"></h1></html>`,
     };
 

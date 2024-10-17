@@ -27,10 +27,9 @@ connectToRedis().then(() => {
   console.error("Failed to connect to Redis:", err);
 });
 
-cron.schedule('0 0 * * *', () => {
+cron.schedule('0 0 */3 * *', () => {
   console.log("Test mail sent");
-  
-sendTestMail()
+  sendTestMail();
 });
 
 const PORT = process.env.PORT || 3300;
